@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Timer</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="flex items-center justify-center h-screen bg-black text-orange-500">
-    <div class="text-center">
-        <h1 class="text-4xl mb-4">Pomodoro Timer</h1>
-        <div id="timer" class="text-6xl mb-4">25:00</div>
+    <div class="text-center neon-border p-6 rounded-lg shadow-lg">
+        <h1 class="text-5xl mb-6 neon-text">Pomodoro Timer</h1>
+        <div id="timer" class="text-7xl mb-8">25:00</div>
         <div>
-            <button id="start" class="bg-orange-500 text-black py-2 px-4 rounded">Start</button>
-            <button id="stop" class="bg-orange-500 text-black py-2 px-4 rounded ml-2">Stop</button>
+            <button id="start" class="btn btn-start">Start</button>
+            <button id="stop" class="btn btn-stop ml-4">Stop</button>
         </div>
     </div>
     <script src="script.js"></script>

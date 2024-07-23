@@ -1,7 +1,6 @@
-// script.js
 let countdown;
 let isRunning = false;
-let remainingTime = 25 * 60;
+let remainingTime = 25 * 60; // Time in seconds
 const timerDisplay = document.getElementById("timer");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
@@ -9,10 +8,12 @@ const stopButton = document.getElementById("stop");
 startButton.addEventListener("click", startTimer);
 stopButton.addEventListener("click", stopTimer);
 
+let endTime;
+
 function startTimer() {
   if (isRunning) return;
   isRunning = true;
-  const endTime = Date.now() + remainingTime * 1000;
+  endTime = Date.now() + remainingTime * 1000;
 
   countdown = setInterval(() => {
     const now = Date.now();
@@ -32,7 +33,7 @@ function startTimer() {
 function stopTimer() {
   clearInterval(countdown);
   isRunning = false;
-  remainingTime = 25 * 60;
+  remainingTime = 25 * 60; // Reset to initial time
   updateTimerDisplay(remainingTime);
 }
 
@@ -43,9 +44,8 @@ function updateTimerDisplay(time) {
 }
 
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
+  if (!document.hidden && isRunning) {
     clearInterval(countdown);
-  } else if (isRunning) {
     startTimer();
   }
 });
