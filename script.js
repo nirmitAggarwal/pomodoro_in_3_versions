@@ -1,8 +1,7 @@
 // script.js
-let timer;
 let countdown;
 let isRunning = false;
-
+let remainingTime = 25 * 60;
 const timerDisplay = document.getElementById("timer");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
@@ -13,24 +12,42 @@ stopButton.addEventListener("click", stopTimer);
 function startTimer() {
   if (isRunning) return;
   isRunning = true;
-  let time = 25 * 60;
+  const endTime = Date.now() + remainingTime * 1000;
+
   countdown = setInterval(() => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    timerDisplay.textContent = `${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds}`;
-    if (time <= 0) {
+    const now = Date.now();
+    remainingTime = Math.round((endTime - now) / 1000);
+
+    if (remainingTime <= 0) {
       clearInterval(countdown);
       isRunning = false;
+      remainingTime = 0;
       alert("Time's up!");
     }
-    time--;
+
+    updateTimerDisplay(remainingTime);
   }, 1000);
 }
 
 function stopTimer() {
   clearInterval(countdown);
   isRunning = false;
-  timerDisplay.textContent = "25:00";
+  remainingTime = 25 * 60;
+  updateTimerDisplay(remainingTime);
 }
+
+function updateTimerDisplay(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  timerDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    clearInterval(countdown);
+  } else if (isRunning) {
+    startTimer();
+  }
+});
+
+updateTimerDisplay(remainingTime);
